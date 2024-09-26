@@ -8,6 +8,6 @@
 int main() {
     real_matrix m(3, 3);
     m[0][0] = 1;
-    m.print();
+    std::cout << m;
     return 0;
 }

@@ -4,3 +4,4 @@ build
 html
 latex
 real_matrix/build
+Doxyfile

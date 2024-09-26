@@ -124,6 +124,12 @@ public:
     void resize(int rows, int cols);
 
     /**
+     * \brief Method for getting the number of rows in the matrix.
+     * \return The number of rows in the matrix.
+     */
+    int size() const;
+
+    /**
      * \brief Method for getting a submatrix of the matrix.
      * \param rows The number of rows in the submatrix.
      * \param cols The number of columns in the submatrix.
@@ -131,9 +137,6 @@ public:
      * The submatrix is always no larger than the current matrix.
      */
     real_matrix submatrix(int rows, int cols);
-
-    /// Method for printing the matrix.
-    void print();
 
     /**
      * \brief Operator for getting a row of the matrix by index.
@@ -330,5 +333,7 @@ private:
     ROW **vectors;  ///< Pointer to the array of row pointers.
 
 };
+
+std::ostream &operator<<(std::ostream &os, const real_matrix &m);
 
 #endif //PPOIS_SEM3_REAL_MATRIX_H

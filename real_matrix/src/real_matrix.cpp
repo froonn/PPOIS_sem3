@@ -83,15 +83,6 @@ void real_matrix::T() {
     *this = temp;
 }
 
-void real_matrix::print() {
-    for (int i = 0; i < this->rows; i += 1) {
-        for (int j = 0; j < this->cols; j += 1) {
-            std::cout << (*(this->vectors[i]))[j] << ' ';
-        }
-        std::cout << std::endl;
-    }
-}
-
 bool real_matrix::is_square() {
     return this->rows == this->cols;
 }
@@ -501,7 +492,17 @@ bool real_matrix::operator!=(const real_matrix &other) const {
 }
 
 
+std::ostream &operator<<(std::ostream &os, const real_matrix &m) {
+    for (int i = 0; i < m[0].size(); i += 1) {
+        for (int j = 0; j < m.size(); j += 1) {
+            os << m[i][j] << ' ';
+        }
+        os << std::endl;
+    }
 
+    return os;
+}
 
-
-
+int real_matrix::size() const {
+    return this->rows;
+}
