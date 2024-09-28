@@ -18,6 +18,14 @@ SUITE(Real_matrix) {
         CHECK_EQUAL(a[1][1], b[1][1]);
     }
 
+    TEST(resize_submatrix) {
+        Real_matrix a;
+        a.load_from_file("test.txt");
+        a.resize(1, 1);
+        Real_matrix b = a.submatrix(1, 1);
+        CHECK_EQUAL(a, b);
+    }
+
     TEST(transpose) {
         Real_matrix a;
         a.load_from_file("test.txt");
@@ -28,11 +36,32 @@ SUITE(Real_matrix) {
         CHECK_EQUAL(a[1][1], 4);
     }
 
-    TEST(determinant) {
+    TEST(determinant_1x1) {
+        Real_matrix a(1, 1);
+        a[0][0] = 1;
+        CHECK_EQUAL(a.det(), 1);
+    }
+
+    TEST(determinant_1x2) {
+        Real_matrix a(1, 2);
+        CHECK_THROW(a.det(), std::logic_error);
+    }
+
+    TEST(determinant_2x2) {
         Real_matrix a;
         a.load_from_file("test.txt");
         CHECK_EQUAL(a.det(), -2);
 
+    }
+
+    TEST(determinant_3x3) {
+        Real_matrix a(3, 3);
+        for (int i = 0; i < 3; i += 1) {
+            for (int j = 0; j < 3; j += 1) {
+                a[i][j] = i + j;
+            }
+        }
+        CHECK_EQUAL(a.det(), 0);
     }
 
     TEST(norm) {
@@ -243,6 +272,21 @@ SUITE(Real_matrix) {
         CHECK_EQUAL(a[1][1], 22);
     }
 
+    TEST(power_equal_double_0) {
+        Real_matrix a;
+        a.load_from_file("test.txt");
+        a ^= 0;
+        CHECK_EQUAL(a[0][0], 1);
+        CHECK_EQUAL(a[0][1], 0);
+        CHECK_EQUAL(a[1][0], 0);
+        CHECK_EQUAL(a[1][1], 1);
+    }
+
+    TEST(power_equal_not_square) {
+        Real_matrix a(2, 3);
+        CHECK_THROW(a ^= 2, std::logic_error);
+    }
+
     TEST(power_double) {
         Real_matrix a;
         a.load_from_file("test.txt");
@@ -423,6 +467,27 @@ SUITE(Real_matrix) {
         a[0][1] = 2;
         a[1][1] = 3;
         CHECK(!a.is_lower_triangular());
+    }
+
+    TEST(ostream) {
+        Real_matrix a(2, 2);
+        a[0][0] = 1;
+        a[0][1] = 2;
+        a[1][0] = 3;
+        a[1][1] = 4;
+        std::ostringstream out;
+        out << a;
+        CHECK_EQUAL("1 2 \n3 4 \n", out.str());
+    }
+
+    TEST(index_operator_out_of_range) {
+        Real_matrix a(2, 2);
+        CHECK_THROW(a[2][0], std::out_of_range);
+    }
+
+    TEST(index_operator_negative) {
+        Real_matrix a(2, 2);
+        CHECK_THROW(a[-1][0], std::out_of_range);
     }
 }
 

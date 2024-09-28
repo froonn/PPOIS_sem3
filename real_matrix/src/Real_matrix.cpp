@@ -448,7 +448,13 @@ Real_matrix Real_matrix::operator^=(double value) {
         }
 
         for (int i = 0; i < this->rows; i += 1) {
-            (*this)[i][i] = 1;
+            for (int j = 0; j < this->cols; j += 1) {
+                if (i == j) {
+                    (*this)[i][j] = 1;
+                } else {
+                    (*this)[i][j] = 0;
+                }
+            }
         }
 
         return *this;
