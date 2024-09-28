@@ -2,7 +2,7 @@
 
 # компиляция
 
-Для успешной компиляции программы необходимо установить библиотеку [`UnitTest++`](https://github.com/unittest-cpp/unittest-cpp)
+Для успешной компиляции библиотеки необходимо установить [`UnitTest++`](https://github.com/unittest-cpp/unittest-cpp)
 
 Компиляция производится с помощью утилиты `сmake`:
 
@@ -35,7 +35,7 @@ doxygen Doxyfile
 
 ```cmake
 include_directories(real_matrix/include)
-link_directories(real_matrix/build)
+link_directories(real_matrix/lib)
 
 add_executable(your_executable_name your_source_files.cpp)
 

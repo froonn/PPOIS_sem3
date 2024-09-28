@@ -1,7 +1,9 @@
+.gitignore
 .idea
 cmake-build-debug
 build
 html
 latex
-real_matrix/build
 Doxyfile
+test.cpp
+test

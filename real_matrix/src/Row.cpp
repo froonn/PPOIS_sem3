@@ -2,14 +2,14 @@
 // Created by xinardelis on 16/09/24.
 //
 
-#include "../include/real_matrix.h"
+#include "../include/Row.h"
 
-real_matrix::ROW::ROW() {
+Row::Row() {
     this->cols = 0;
     this->vector = nullptr;
 }
 
-real_matrix::ROW::ROW(int size) {
+Row::Row(int size) {
     this->vector = new double[size];
     this->cols = size;
 
@@ -18,7 +18,7 @@ real_matrix::ROW::ROW(int size) {
     }
 }
 
-real_matrix::ROW::ROW(const real_matrix::ROW &v) {
+Row::Row(const Row &v) {
     this->cols = v.cols;
     this->vector = new double[this->cols];
 
@@ -27,11 +27,11 @@ real_matrix::ROW::ROW(const real_matrix::ROW &v) {
     }
 }
 
-real_matrix::ROW::~ROW() {
+Row::~Row() {
     delete[] this->vector;
 }
 
-real_matrix::ROW &real_matrix::ROW::operator=(const real_matrix::ROW &v) {
+Row &Row::operator=(const Row &v) {
     if (this == &v) {
         return *this;
     }
@@ -48,7 +48,7 @@ real_matrix::ROW &real_matrix::ROW::operator=(const real_matrix::ROW &v) {
     return *this;
 }
 
-double &real_matrix::ROW::operator[](int y) {
+double &Row::operator[](int y) {
     if (0 <= y and y < this->cols) {
         return this->vector[y];
     } else {
@@ -56,15 +56,15 @@ double &real_matrix::ROW::operator[](int y) {
     }
 }
 
-int real_matrix::ROW::size() const {
+int Row::size() const {
     return this->cols;
 }
 
-void real_matrix::ROW::resize(int new_size) {
-    auto *new_vector = new double[new_size];
+void Row::resize(int new_size) {
+    double *new_vector = new double[new_size];
 
     for (int i = 0; i < new_size; i += 1) {
-        this->vector[i] = 0;
+        new_vector[i] = 0;
     }
 
     for (int i = 0; i < std::min(this->cols, new_size); i += 1) {

@@ -8,99 +8,42 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <stdexcept>
+
+#include "Row.h"
 
 /**
- * \class real_matrix
+ * \class Real_matrix
  * \brief A class for representing and manipulating real matrices.
  */
-class real_matrix {
+class Real_matrix : public Row {
 public:
 
-    /**
-     * \class ROW
-     * \brief A class for representing a row of a matrix.
-     */
-    class ROW {
-    private:
-        int cols;       ///< Number of columns in the row.
-        double *vector; ///< Pointer to the array of elements in the row.
-
-    public:
-
-        /// Default constructor.
-        ROW();
-
-        /**
-         * \brief Constructor with size.
-         * \param size Number of columns in the row.
-         */
-        explicit ROW(int size);
-
-        /**
-         * \brief Copy constructor.
-         * \param v The ROW object to copy from.
-         */
-        ROW(const ROW &v);
-
-        /// Destructor.
-        ~ROW();
-
-        /**
-         * \brief Assignment operator.
-         * \param v The ROW object to assign from.
-         * \return Reference to the assigned ROW object.
-         */
-        ROW &operator=(const ROW &v);
-
-        /**
-         * \brief Operator for getting an element of the vector by index.
-         * \param y Index of the element.
-         * \return Reference to the element at the specified index.
-         * \throws std::out_of_range if the index is larger than the size of the vector or the index is negative
-         */
-        double &operator[](int y);
-
-        /**
-         * \brief Method for getting the size of the vector.
-         * \return The size of the vector.
-         */
-        int size() const;
-
-        /**
-         * \brief Method for resizing the vector.
-         * \param new_size The new size of the vector.
-         * The new vector is initialized with zeros.
-         */
-        void resize(int new_size);
-
-    };
-
     /// Default constructor.
-    real_matrix();
+    Real_matrix();
 
     /**
      * \brief Constructor with dimensions.
      * \param rows Number of rows in the matrix.
      * \param cols Number of columns in the matrix.
      */
-    real_matrix(int rows, int cols);
+    Real_matrix(int rows, int cols);
 
     /**
      * \brief Copy constructor.
-     * \param m The real_matrix object to copy from.
+     * \param m The Real_matrix object to copy from.
      */
-    real_matrix(const real_matrix &m);
+    Real_matrix(const Real_matrix &m);
 
     /// Destructor.
-    ~real_matrix();
+    ~Real_matrix();
 
     /**
      * \brief Assignment operator.
-     * \param m The real_matrix object to assign from.
-     * \return Reference to the assigned real_matrix object.
+     * \param m The Real_matrix object to assign from.
+     * \return Reference to the assigned Real_matrix object.
      */
-    real_matrix &operator=(const real_matrix &m);
+    Real_matrix &operator=(const Real_matrix &m);
 
     /**
      * \brief Method for loading a matrix from a file.
@@ -136,7 +79,7 @@ public:
      * \return The submatrix.
      * The submatrix is always no larger than the current matrix.
      */
-    real_matrix submatrix(int rows, int cols);
+    Real_matrix submatrix(int rows, int cols);
 
     /**
      * \brief Operator for getting a row of the matrix by index.
@@ -144,7 +87,7 @@ public:
      * \return Reference to the row at the specified index.
      * \throws std::out_of_range if the index is out of range.
      */
-    real_matrix::ROW &operator[](int x) const;
+    Real_matrix::Row &operator[](int x) const;
 
     /// Method for transposing the matrix.
     void T();
@@ -160,16 +103,16 @@ public:
     double norm();
 
     /// Prefix increment operator.
-    real_matrix &operator++();
+    Real_matrix &operator++();
 
     /// Postfix increment operator.
-    real_matrix operator++(int);
+    Real_matrix operator++(int);
 
     /// Prefix decrement operator.
-    real_matrix &operator--();
+    Real_matrix &operator--();
 
     /// Postfix decrement operator.
-    real_matrix operator--(int);
+    Real_matrix operator--(int);
 
     /**
      * \brief Addition assignment operator.
@@ -177,7 +120,7 @@ public:
      * \return Reference to the resulting matrix.
      * \throw std::logic_error if the matrices have different dimensions.
      */
-    real_matrix &operator+=(const real_matrix &other);
+    Real_matrix &operator+=(const Real_matrix &other);
 
     /**
      * \brief Addition operator.
@@ -185,21 +128,21 @@ public:
      * \return The resulting matrix.
      * \throw std::logic_error if the matrices have different dimensions.
      */
-    real_matrix operator+(const real_matrix &other) const;
+    Real_matrix operator+(const Real_matrix &other) const;
 
     /**
      * \brief Addition assignment operator with a scalar.
      * \param value The scalar value to add.
      * \return Reference to the resulting matrix.
      */
-    real_matrix &operator+=(double value);
+    Real_matrix &operator+=(double value);
 
     /**
      * \brief Addition operator with a scalar.
      * \param value The scalar value to add.
      * \return The resulting matrix.
      */
-    real_matrix operator+(double value) const;
+    Real_matrix operator+(double value) const;
 
     /**
      * \brief Subtraction assignment operator.
@@ -207,7 +150,7 @@ public:
      * \return Reference to the resulting matrix.
      * \throw std::logic_error if the matrices have different dimensions.
      */
-    real_matrix &operator-=(const real_matrix &other);
+    Real_matrix &operator-=(const Real_matrix &other);
 
     /**
      * \brief Subtraction operator.
@@ -215,35 +158,35 @@ public:
      * \return The resulting matrix.
      * \throw std::logic_error if the matrices have different dimensions.
      */
-    real_matrix operator-(const real_matrix &other) const;
+    Real_matrix operator-(const Real_matrix &other) const;
 
     /**
      * \brief Subtraction assignment operator with a scalar.
      * \param value The scalar value to subtract.
      * \return Reference to the resulting matrix.
      */
-    real_matrix &operator-=(double value);
+    Real_matrix &operator-=(double value);
 
     /**
      * \brief Subtraction operator with a scalar.
      * \param value The scalar value to subtract.
      * \return The resulting matrix.
      */
-    real_matrix operator-(double value) const;
+    Real_matrix operator-(double value) const;
 
     /**
      * \brief Multiplication assignment operator with a scalar.
      * \param value The scalar value to multiply.
      * \return Reference to the resulting matrix.
      */
-    real_matrix &operator*=(double value);
+    Real_matrix &operator*=(double value);
 
     /**
      * \brief Multiplication operator with a scalar.
      * \param value The scalar value to multiply.
      * \return The resulting matrix.
      */
-    real_matrix operator*(double value) const;
+    Real_matrix operator*(double value) const;
 
     /**
      * \brief Multiplication assignment operator with another matrix.
@@ -251,7 +194,7 @@ public:
      * \return Reference to the resulting matrix.
      * \throw std::logic_error if the matrices have incompatible dimensions.
      */
-    real_matrix operator*=(const real_matrix &other);
+    Real_matrix operator*=(const Real_matrix &other);
 
     /**
      * \brief Multiplication operator with another matrix.
@@ -259,21 +202,21 @@ public:
      * \return The resulting matrix.
      * \throw std::logic_error if the matrices have incompatible dimensions.
      */
-    real_matrix operator*(const real_matrix &other) const;
+    Real_matrix operator*(const Real_matrix &other) const;
 
     /**
      * \brief Division assignment operator with a scalar.
      * \param value The scalar value to divide.
      * \return Reference to the resulting matrix.
      */
-    real_matrix operator/=(double value);
+    Real_matrix operator/=(double value);
 
     /**
      * \brief Division operator with a scalar.
      * \param value The scalar value to divide.
      * \return The resulting matrix.
      */
-    real_matrix operator/(double value) const;
+    Real_matrix operator/(double value) const;
 
     /**
      * \brief Exponentiation assignment operator with a scalar.
@@ -281,7 +224,7 @@ public:
      * \return Reference to the resulting matrix.
      * \throw std::logic_error if the matrix is not square or the exponent is negative.
      */
-    real_matrix operator^=(double value);
+    Real_matrix operator^=(double value);
 
     /**
      * \brief Exponentiation operator with a scalar.
@@ -289,21 +232,21 @@ public:
      * \return The resulting matrix.
      * \throw std::logic_error if the matrix is not square or the exponent is negative.
      */
-    real_matrix operator^(double value) const;
+    Real_matrix operator^(double value) const;
 
     /**
      * \brief Equality operator.
      * \param other The matrix to compare.
      * \return True if the matrices are equal, false otherwise.
      */
-    bool operator==(const real_matrix &other) const;
+    bool operator==(const Real_matrix &other) const;
 
     /**
      * \brief Inequality operator.
      * \param other The matrix to compare.
      * \return True if the matrices are not equal, false otherwise.
      */
-    bool operator!=(const real_matrix &other) const;
+    bool operator!=(const Real_matrix &other) const;
 
     /// Method for checking if the matrix is square.
     bool is_square();
@@ -330,10 +273,10 @@ private:
 
     int cols;       ///< Number of columns in the matrix.
     int rows;       ///< Number of rows in the matrix.
-    ROW **vectors;  ///< Pointer to the array of row pointers.
+    Row **vectors;  ///< Pointer to the array of row pointers.
 
 };
 
-std::ostream &operator<<(std::ostream &os, const real_matrix &m);
+std::ostream &operator<<(std::ostream &os, const Real_matrix &m);
 
 #endif //PPOIS_SEM3_REAL_MATRIX_H

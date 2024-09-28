@@ -2,36 +2,36 @@
 // Created by xinardelis on 14/09/24.
 //
 
-#include "../include/real_matrix.h"
+#include "../include/Real_matrix.h"
 
-real_matrix::real_matrix() {
+Real_matrix::Real_matrix() {
     this->rows = 0;
     this->cols = 0;
     this->vectors = nullptr;
 }
 
-real_matrix::real_matrix(int rows, int cols) {
+Real_matrix::Real_matrix(int rows, int cols) {
     this->rows = rows;
     this->cols = cols;
 
-    this->vectors = new ROW*[this->rows];
+    this->vectors = new Row*[this->rows];
     for (int i = 0; i < rows; i += 1) {
-        this->vectors[i] = new ROW(this->cols);
+        this->vectors[i] = new Row(this->cols);
     }
 }
 
-real_matrix::real_matrix(const real_matrix &m) {
+Real_matrix::Real_matrix(const Real_matrix &m) : Row(m) {
     this->rows = m.rows;
     this->cols = m.cols;
 
-    this->vectors = new ROW*[this->rows];
+    this->vectors = new Row*[this->rows];
     for (int i = 0; i < this->rows; i += 1) {
-        this->vectors[i] = new ROW(this->cols);
-        *(this->vectors[i]) = m[i];
+        this->vectors[i] = new Row(m.vectors[i]->size());
+        *(this->vectors[i]) = *(m.vectors[i]);
     }
 }
 
-real_matrix::ROW &real_matrix::operator[](int x) const {
+Real_matrix::Row &Real_matrix::operator[](int x) const {
     if (0 <= x and x < this->rows) {
         return *(this->vectors[x]);
     } else {
@@ -39,14 +39,14 @@ real_matrix::ROW &real_matrix::operator[](int x) const {
     }
 }
 
-real_matrix::~real_matrix() {
+Real_matrix::~Real_matrix() {
     for (int i = 0; i < this->rows; i += 1) {
         delete this->vectors[i];
     }
     delete[] this->vectors;
 }
 
-real_matrix &real_matrix::operator=(const real_matrix &m) {
+Real_matrix &Real_matrix::operator=(const Real_matrix &m) {
     if (this == &m) {
         return *this;
     }
@@ -61,9 +61,9 @@ real_matrix &real_matrix::operator=(const real_matrix &m) {
     this->cols = m.cols;
     this->rows = m.rows;
 
-    this->vectors = new ROW*[this->rows];
+    this->vectors = new Row*[this->rows];
     for (int i = 0; i < this->rows; i += 1) {
-        this->vectors[i] = new ROW(this->cols);
+        this->vectors[i] = new Row(this->cols);
         *(this->vectors[i]) = m[i];
     }
 
@@ -71,23 +71,23 @@ real_matrix &real_matrix::operator=(const real_matrix &m) {
 }
 
 
-void real_matrix::T() {
-    real_matrix temp(this->cols, this->rows);
+void Real_matrix::T() {
+    Real_matrix result(this->cols, this->rows);
 
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
-            temp[j][i] = (*this)[i][j];
+            result[j][i] = (*this)[i][j];
         }
     }
 
-    *this = temp;
+    *this = result;
 }
 
-bool real_matrix::is_square() {
+bool Real_matrix::is_square() {
     return this->rows == this->cols;
 }
 
-bool real_matrix::is_diagonal() {
+bool Real_matrix::is_diagonal() {
     if (!this->is_square()) {
         return false;
     }
@@ -103,7 +103,7 @@ bool real_matrix::is_diagonal() {
     return true;
 }
 
-bool real_matrix::is_zero() {
+bool Real_matrix::is_zero() {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             if ((*this)[i][j] != 0) {
@@ -114,7 +114,7 @@ bool real_matrix::is_zero() {
     return true;
 }
 
-bool real_matrix::is_identity() {
+bool Real_matrix::is_identity() {
     if (!this->is_square()) {
         return false;
     }
@@ -130,7 +130,7 @@ bool real_matrix::is_identity() {
     return true;
 }
 
-bool real_matrix::is_symmetric() {
+bool Real_matrix::is_symmetric() {
     if (!this->is_square()) {
         return false;
     }
@@ -146,7 +146,7 @@ bool real_matrix::is_symmetric() {
     return true;
 }
 
-bool real_matrix::is_upper_triangular() {
+bool Real_matrix::is_upper_triangular() {
     if (!this->is_square()) {
         return false;
     }
@@ -162,7 +162,7 @@ bool real_matrix::is_upper_triangular() {
     return true;
 }
 
-bool real_matrix::is_lower_triangular() {
+bool Real_matrix::is_lower_triangular() {
     if (!this->is_square()) {
         return false;
     }
@@ -180,33 +180,33 @@ bool real_matrix::is_lower_triangular() {
 
 // Resize of the current matrix
 // The new matrix is initialized with zeros
-void real_matrix::resize(int rows, int cols) {
-    real_matrix temp(rows, cols);
+void Real_matrix::resize(int rows, int cols) {
+    Real_matrix result(rows, cols);
 
     for (int i = 0; i < std::min(this->rows, rows); i += 1) {
         for (int j = 0; j < std::min(this->cols, cols); j += 1) {
-            temp[i][j] = (*this)[i][j];
+            result[i][j] = (*this)[i][j];
         }
     }
 
-    *this = temp;
+    *this = result;
 }
 
 // Create a submatrix from the current matrix
 // The submatrix is always no larger than the current matrix
-real_matrix real_matrix::submatrix(int rows, int cols) {
-    real_matrix temp(std::min(this->rows, rows), std::min(this->cols, cols));
+Real_matrix Real_matrix::submatrix(int rows, int cols) {
+    Real_matrix result(std::min(this->rows, rows), std::min(this->cols, cols));
 
-    for (int i = 0; i < temp.rows; i += 1) {
-        for (int j = 0; j < temp.cols; j += 1) {
-            temp[i][j] = (*this)[i][j];
+    for (int i = 0; i < result.rows; i += 1) {
+        for (int j = 0; j < result.cols; j += 1) {
+            result[i][j] = (*this)[i][j];
         }
     }
 
-    return temp;
+    return result;
 }
 
-void real_matrix::save_to_file(std::string filename) {
+void Real_matrix::save_to_file(std::string filename) {
     std::ofstream file(filename);
 
     file << this->rows << ' ' << this->cols << std::endl;
@@ -221,7 +221,7 @@ void real_matrix::save_to_file(std::string filename) {
     file.close();
 }
 
-void real_matrix::load_from_file(std::string filename) {
+void Real_matrix::load_from_file(std::string filename) {
     std::ifstream file(filename);
 
     if (!file.is_open()) {
@@ -231,18 +231,18 @@ void real_matrix::load_from_file(std::string filename) {
     int rows, cols;
     file >> rows >> cols;
 
-    real_matrix temp(rows, cols);
+    Real_matrix result(rows, cols);
     for (int i = 0; i < rows; i += 1) {
         for (int j = 0; j < cols; j += 1) {
-            file >> temp[i][j];
+            file >> result[i][j];
         }
     }
 
-    *this = temp;
+    *this = result;
     file.close();
 }
 
-int real_matrix::det() {
+int Real_matrix::det() {
     if (!this->is_square()) {
         throw std::logic_error("Matrix is not square");
     }
@@ -257,20 +257,20 @@ int real_matrix::det() {
 
     int result = 0;
     for (int i = 0; i < this->rows; i += 1) {
-        real_matrix temp = this->submatrix(this->rows - 1, this->cols - 1);
+        Real_matrix result = this->submatrix(this->rows - 1, this->cols - 1);
         for (int j = 0; j < this->rows - 1; j += 1) {
             for (int k = 0; k < this->cols - 1; k += 1) {
-                temp[j][k] = (*this)[j + 1][k >= i ? k + 1 : k];
+                result[j][k] = (*this)[j + 1][k >= i ? k + 1 : k];
             }
         }
 
-        result += (i % 2 == 0 ? 1 : -1) * (*this)[0][i] * temp.det();
+        result += (i % 2 == 0 ? 1 : -1) * (*this)[0][i] * result.det();
     }
 
     return result;
 }
 
-double real_matrix::norm() {
+double Real_matrix::norm() {
     double result = 0;
     for (int i = 0; i < this->rows; i += 1) {
         double sum = 0;
@@ -283,7 +283,7 @@ double real_matrix::norm() {
     return result;
 }
 
-real_matrix &real_matrix::operator++() {
+Real_matrix &Real_matrix::operator++() {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] += 1;
@@ -293,13 +293,13 @@ real_matrix &real_matrix::operator++() {
     return *this;
 }
 
-real_matrix real_matrix::operator++(int) {
-    real_matrix temp(*this);
+Real_matrix Real_matrix::operator++(int) {
+    Real_matrix result(*this);
     ++(*this);
-    return temp;
+    return result;
 }
 
-real_matrix &real_matrix::operator--() {
+Real_matrix &Real_matrix::operator--() {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] -= 1;
@@ -309,13 +309,13 @@ real_matrix &real_matrix::operator--() {
     return *this;
 }
 
-real_matrix real_matrix::operator--(int) {
-    real_matrix temp(*this);
+Real_matrix Real_matrix::operator--(int) {
+    Real_matrix result(*this);
     --(*this);
-    return temp;
+    return result;
 }
 
-real_matrix &real_matrix::operator+=(const real_matrix &other) {
+Real_matrix &Real_matrix::operator+=(const Real_matrix &other) {
     if (this->rows != other.rows or this->cols != other.cols) {
         throw std::logic_error("Matrices have different sizes");
     }
@@ -329,13 +329,13 @@ real_matrix &real_matrix::operator+=(const real_matrix &other) {
     return *this;
 }
 
-real_matrix real_matrix::operator+(const real_matrix &other) const {
-    real_matrix temp(*this);
-    temp += other;
-    return temp;
+Real_matrix Real_matrix::operator+(const Real_matrix &other) const {
+    Real_matrix result(*this);
+    result += other;
+    return result;
 }
 
-real_matrix &real_matrix::operator+=(double value) {
+Real_matrix &Real_matrix::operator+=(double value) {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] += value;
@@ -345,13 +345,13 @@ real_matrix &real_matrix::operator+=(double value) {
     return *this;
 }
 
-real_matrix real_matrix::operator+(double value) const {
-    real_matrix temp(*this);
-    temp += value;
-    return temp;
+Real_matrix Real_matrix::operator+(double value) const {
+    Real_matrix result(*this);
+    result += value;
+    return result;
 }
 
-real_matrix &real_matrix::operator-=(const real_matrix &other) {
+Real_matrix &Real_matrix::operator-=(const Real_matrix &other) {
     if (this->rows != other.rows or this->cols != other.cols) {
         throw std::logic_error("Matrices have different sizes");
     }
@@ -365,13 +365,13 @@ real_matrix &real_matrix::operator-=(const real_matrix &other) {
     return *this;
 }
 
-real_matrix real_matrix::operator-(const real_matrix &other) const {
-    real_matrix temp(*this);
-    temp -= other;
-    return temp;
+Real_matrix Real_matrix::operator-(const Real_matrix &other) const {
+    Real_matrix result(*this);
+    result -= other;
+    return result;
 }
 
-real_matrix &real_matrix::operator-=(double value) {
+Real_matrix &Real_matrix::operator-=(double value) {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] -= value;
@@ -381,13 +381,13 @@ real_matrix &real_matrix::operator-=(double value) {
     return *this;
 }
 
-real_matrix real_matrix::operator-(double value) const {
-    real_matrix temp(*this);
-    temp -= value;
-    return temp;
+Real_matrix Real_matrix::operator-(double value) const {
+    Real_matrix result(*this);
+    result -= value;
+    return result;
 }
 
-real_matrix &real_matrix::operator*=(double value) {
+Real_matrix &Real_matrix::operator*=(double value) {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] *= value;
@@ -397,35 +397,35 @@ real_matrix &real_matrix::operator*=(double value) {
     return *this;
 }
 
-real_matrix real_matrix::operator*(double value) const {
-    real_matrix temp(*this);
-    temp *= value;
-    return temp;
+Real_matrix Real_matrix::operator*(double value) const {
+    Real_matrix result(*this);
+    result *= value;
+    return result;
 }
 
-real_matrix real_matrix::operator*(const real_matrix &other) const {
+Real_matrix Real_matrix::operator*(const Real_matrix &other) const {
     if (this->cols != other.rows) {
         throw std::logic_error("Matrices have incompatible sizes");
     }
 
-    real_matrix temp(this->rows, other.cols);
+    Real_matrix result(this->rows, other.cols);
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < other.cols; j += 1) {
             for (int k = 0; k < this->cols; k += 1) {
-                temp[i][j] += (*this)[i][k] * other[k][j];
+                result[i][j] += (*this)[i][k] * other[k][j];
             }
         }
     }
 
-    return temp;
+    return result;
 }
 
-real_matrix real_matrix::operator*=(const real_matrix &other) {
+Real_matrix Real_matrix::operator*=(const Real_matrix &other) {
     *this = *this * other;
     return *this;
 }
 
-real_matrix real_matrix::operator/=(double value) {
+Real_matrix Real_matrix::operator/=(double value) {
     for (int i = 0; i < this->rows; i += 1) {
         for (int j = 0; j < this->cols; j += 1) {
             (*this)[i][j] /= value;
@@ -435,13 +435,13 @@ real_matrix real_matrix::operator/=(double value) {
     return *this;
 }
 
-real_matrix real_matrix::operator/(double value) const {
-    real_matrix temp(*this);
-    temp /= value;
-    return temp;
+Real_matrix Real_matrix::operator/(double value) const {
+    Real_matrix result(*this);
+    result /= value;
+    return result;
 }
 
-real_matrix real_matrix::operator^=(double value) {
+Real_matrix Real_matrix::operator^=(double value) {
     if (value == 0) {
         if (!this->is_square()) {
             throw std::logic_error("Matrix is not square");
@@ -465,13 +465,13 @@ real_matrix real_matrix::operator^=(double value) {
     return *this;
 }
 
-real_matrix real_matrix::operator^(double value) const {
-    real_matrix temp(*this);
-    temp ^= value;
-    return temp;
+Real_matrix Real_matrix::operator^(double value) const {
+    Real_matrix result(*this);
+    result ^= value;
+    return result;
 }
 
-bool real_matrix::operator==(const real_matrix &other) const {
+bool Real_matrix::operator==(const Real_matrix &other) const {
     if (this->rows != other.rows or this->cols != other.cols) {
         return false;
     }
@@ -487,12 +487,12 @@ bool real_matrix::operator==(const real_matrix &other) const {
     return true;
 }
 
-bool real_matrix::operator!=(const real_matrix &other) const {
+bool Real_matrix::operator!=(const Real_matrix &other) const {
     return !(*this == other);
 }
 
 
-std::ostream &operator<<(std::ostream &os, const real_matrix &m) {
+std::ostream &operator<<(std::ostream &os, const Real_matrix &m) {
     for (int i = 0; i < m[0].size(); i += 1) {
         for (int j = 0; j < m.size(); j += 1) {
             os << m[i][j] << ' ';
@@ -503,6 +503,6 @@ std::ostream &operator<<(std::ostream &os, const real_matrix &m) {
     return os;
 }
 
-int real_matrix::size() const {
+int Real_matrix::size() const {
     return this->rows;
 }
