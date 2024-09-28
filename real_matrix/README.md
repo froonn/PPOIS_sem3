@@ -27,7 +27,7 @@ ctest
 
 ```bash
 doxygen -g
-doxygen Doxyfile
+doxygen
 ```
 # использование с помощью CMake
 

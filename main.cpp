@@ -6,7 +6,7 @@
 #include <iostream>
 
 int main() {
-    real_matrix m(3, 3);
+    Real_matrix m(3, 3);
     m[0][0] = 1;
     std::cout << m;
     return 0;
