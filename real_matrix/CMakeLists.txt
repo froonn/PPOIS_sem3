@@ -14,8 +14,6 @@ set_target_properties(real_matrix PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ../lib)
 enable_testing()
 find_package(UnitTest++ REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
-
 add_executable(real_matrix_tests tests/Real_matrix_tests.cpp)
 target_link_libraries(real_matrix_tests real_matrix UnitTest++)
 add_test(NAME real_matrix_tests COMMAND real_matrix_tests)

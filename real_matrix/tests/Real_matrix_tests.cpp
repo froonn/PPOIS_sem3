@@ -18,6 +18,11 @@ SUITE(Real_matrix) {
         CHECK_EQUAL(a[1][1], b[1][1]);
     }
 
+    TEST(load_exeption) {
+        Real_matrix a;
+        CHECK_THROW(a.load_from_file("nonexistent.txt"), std::runtime_error);
+    }
+
     TEST(resize_submatrix) {
         Real_matrix a;
         a.load_from_file("test.txt");
@@ -285,6 +290,11 @@ SUITE(Real_matrix) {
     TEST(power_equal_not_square) {
         Real_matrix a(2, 3);
         CHECK_THROW(a ^= 2, std::logic_error);
+    }
+
+    TEST(power_equal_0_not_square) {
+        Real_matrix a(2, 3);
+        CHECK_THROW(a ^= 0, std::logic_error);
     }
 
     TEST(power_double) {

@@ -257,14 +257,14 @@ int Real_matrix::det() {
 
     int result = 0;
     for (int i = 0; i < this->rows; i += 1) {
-        Real_matrix result = this->submatrix(this->rows - 1, this->cols - 1);
+        Real_matrix tmp = this->submatrix(this->rows - 1, this->cols - 1);
         for (int j = 0; j < this->rows - 1; j += 1) {
             for (int k = 0; k < this->cols - 1; k += 1) {
-                result[j][k] = (*this)[j + 1][k >= i ? k + 1 : k];
+                tmp[j][k] = (*this)[j + 1][k >= i ? k + 1 : k];
             }
         }
 
-        result += (i % 2 == 0 ? 1 : -1) * (*this)[0][i] * result.det();
+        result += (i % 2 == 0 ? 1 : -1) * (*this)[0][i] * tmp.det();
     }
 
     return result;
