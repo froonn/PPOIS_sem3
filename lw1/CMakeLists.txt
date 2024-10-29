@@ -3,7 +3,7 @@ project(PPOIS_sem3)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3 -Wall -Wextra -Werror")
 
 add_subdirectory(real_matrix)
 include_directories(real_matrix/include)
