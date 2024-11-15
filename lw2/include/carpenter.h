@@ -1,14 +1,27 @@
 //
-// Created by xinardelis on 26/10/24.
+// Created by froonn on 12/11/24.
 //
 
-#ifndef PPOIS_LW2_SEM3_CARPENTER_H
-#define PPOIS_LW2_SEM3_CARPENTER_H
+#ifndef CARPENTER_H
+#define CARPENTER_H
+
+#include <string>
 
 #include "technician.h"
 
 class Carpenter : public Technician {
+public:
+    Carpenter();
+    Carpenter(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& specialization, const std::string& toolset);
+    Carpenter(const Carpenter& carpenter);
+    ~Carpenter();
+    Carpenter& operator=(const Carpenter& carpenter);
 
+    void setToolset(const std::string& toolset);
+    [[nodiscard]] std::string getToolset() const;
+
+private:
+    std::string toolset_;
 };
 
-#endif //PPOIS_LW2_SEM3_CARPENTER_H
+#endif //CARPENTER_H

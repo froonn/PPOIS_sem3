@@ -7,7 +7,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3 -Wall -Wextra -Werror -Wpedantic"
 
 include_directories(include)
 
-add_library(lw2 SHARED src/employee.cc
+add_library(RepairCompany SHARED
+        src/carpenter.cc
 )
 
 enable_testing()
@@ -15,3 +16,11 @@ enable_testing()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 include(GoogleTest)
+
+add_executable(tests
+        tests/RUN_ALL_TESTS.cc
+        tests/carpenter_tests.cc
+)
+
+target_link_libraries(tests RepairCompany GTest::GTest GTest::Main)
+gtest_discover_tests(tests)
