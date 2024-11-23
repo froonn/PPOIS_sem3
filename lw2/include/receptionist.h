@@ -11,14 +11,14 @@
 
 class Receptionist : public Employee {
 public:
-    Receptionist();
-    Receptionist(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& shift);
+    Receptionist(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+                 const std::string& position = "Unknown", int salary = 0, const std::string& shift = "Default shift");
     Receptionist(const Receptionist& receptionist);
     ~Receptionist() override;
     Receptionist& operator=(const Receptionist& receptionist);
 
     void setShift(const std::string& shift);
-    std::string getShift() const;
+    [[nodiscard]] std::string getShift() const;
 
 private:
     std::string shift_;

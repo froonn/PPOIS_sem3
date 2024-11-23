@@ -11,14 +11,15 @@
 
 class Electrician : public Technician {
 public:
-    Electrician();
-    Electrician(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& specialization, int certificationLevel);
+    Electrician(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+                const std::string& position = "Unknown", int salary = 0,
+                const std::string& specialization = "Default specialization", int certificationLevel = 0);
     Electrician(const Electrician& electrician);
     ~Electrician() override;
     Electrician& operator=(const Electrician& electrician);
 
     void setCertificationLevel(int certificationLevel);
-    int getCertificationLevel() const;
+    [[nodiscard]] int getCertificationLevel() const;
 
 private:
     int certificationLevel_;

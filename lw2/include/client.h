@@ -9,20 +9,24 @@
 
 class Client {
 public:
-    Client();
-    Client(const std::string& name, const std::string& contactInfo);
+
+    Client(const std::string& name = "Unknown", const std::string& surname = "Unknown",  const std::string& contactInfo = "Unknown");
     Client(const Client& client);
     ~Client();
     Client& operator=(const Client& client);
 
     void setName(const std::string& name);
-    std::string getName() const;
+    [[nodiscard]] std::string getName() const;
+
+    void setSurname(const std::string& surname);
+    [[nodiscard]] std::string getSurname() const;
 
     void setContactInfo(const std::string& contactInfo);
-    std::string getContactInfo() const;
+    [[nodiscard]] std::string getContactInfo() const;
 
 private:
     std::string name_;
+    std::string surname_;
     std::string contactInfo_;
 };
 

@@ -6,6 +6,9 @@
 #define PPOIS_LW2_SEM3_INVOICE_H
 
 #include <string>
+#include <random>
+
+#include "service_request.h"
 
 class Invoice {
 public:
@@ -16,14 +19,18 @@ public:
     Invoice& operator=(const Invoice& invoice);
 
     void setInvoiceNumber(const std::string& invoiceNumber);
-    std::string getInvoiceNumber() const;
+    [[nodiscard]] std::string getInvoiceNumber() const;
 
     void setAmount(double amount);
-    double getAmount() const;
+    [[nodiscard]] double getAmount() const;
+
+    friend Invoice generateInvoice(ServiceRequest serviceRequest);
 
 private:
     std::string invoiceNumber_;
     double amount_;
 };
+
+Invoice generateInvoice(ServiceRequest serviceRequest);
 
 #endif //PPOIS_LW2_SEM3_INVOICE_H

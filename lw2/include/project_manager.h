@@ -11,14 +11,14 @@
 
 class ProjectManager : public Manager {
 public:
-    ProjectManager();
-    ProjectManager(const std::string& name, const std::string& surname, const std::string& position, int salary, int teamSize, int projectCount);
+    ProjectManager(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+                   const std::string& position = "Unknown", int salary = 0, int teamSize = 0, int projectCount = 0);
     ProjectManager(const ProjectManager& projectManager);
     ~ProjectManager() override;
     ProjectManager& operator=(const ProjectManager& projectManager);
 
     void setProjectCount(int projectCount);
-    int getProjectCount() const;
+    [[nodiscard]] int getProjectCount() const;
 
 private:
     int projectCount_;

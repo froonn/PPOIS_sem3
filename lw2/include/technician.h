@@ -11,14 +11,14 @@
 
 class Technician : public Employee {
 public:
-    Technician();
-    Technician(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& specialization);
+    Technician(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+               const std::string& position = "Unknown", int salary = 0, const std::string& specialization = "Default specialization");
     Technician(const Technician& technician);
-    // ~Technician() override;
+    ~Technician() override;
     Technician& operator=(const Technician& technician);
 
     void setSpecialization(const std::string& specialization);
-    std::string getSpecialization() const;
+    [[nodiscard]] std::string getSpecialization() const;
 
 private:
     std::string specialization_;

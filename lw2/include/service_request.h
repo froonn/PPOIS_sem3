@@ -10,16 +10,16 @@
 class ServiceRequest {
 public:
     ServiceRequest();
-    ServiceRequest(const std::string& requestDetails, const std::string& status);
+    explicit ServiceRequest(const std::string& requestDetails, const std::string& status = "Unknown");
     ServiceRequest(const ServiceRequest& serviceRequest);
     ~ServiceRequest();
     ServiceRequest& operator=(const ServiceRequest& serviceRequest);
 
     void setRequestDetails(const std::string& requestDetails);
-    std::string getRequestDetails() const;
+    [[nodiscard]] std::string getRequestDetails() const;
 
     void setStatus(const std::string& status);
-    std::string getStatus() const;
+    [[nodiscard]] std::string getStatus() const;
 
 private:
     std::string requestDetails_;

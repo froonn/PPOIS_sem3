@@ -11,10 +11,11 @@
 
 class Carpenter : public Technician {
 public:
-    Carpenter();
-    Carpenter(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& specialization, const std::string& toolset);
+    Carpenter(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+              const std::string& position = "Unknown", int salary = 0,
+              const std::string& specialization = "Default specialization", const std::string& toolset = "Default toolset");
     Carpenter(const Carpenter& carpenter);
-    ~Carpenter();
+    ~Carpenter() override;
     Carpenter& operator=(const Carpenter& carpenter);
 
     void setToolset(const std::string& toolset);

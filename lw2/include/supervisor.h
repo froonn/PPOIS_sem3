@@ -11,14 +11,14 @@
 
 class Supervisor : public Manager {
 public:
-    Supervisor();
-    Supervisor(const std::string& name, const std::string& surname, const std::string& position, int salary, int teamSize, const std::string& department);
+    Supervisor(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+               const std::string& position = "Unknown", int salary = 0, int teamSize = 0, const std::string& department = "Unknown");
     Supervisor(const Supervisor& supervisor);
     ~Supervisor() override;
     Supervisor& operator=(const Supervisor& supervisor);
 
     void setDepartment(const std::string& department);
-    std::string getDepartment() const;
+    [[nodiscard]] std::string getDepartment() const;
 
 private:
     std::string department_;

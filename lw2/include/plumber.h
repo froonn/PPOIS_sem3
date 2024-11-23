@@ -11,14 +11,15 @@
 
 class Plumber : public Technician {
 public:
-    Plumber();
-    Plumber(const std::string& name, const std::string& surname, const std::string& position, int salary, const std::string& specialization, int experienceYears);
+    Plumber(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+            const std::string& position = "Unknown", int salary = 0,
+            const std::string& specialization = "Default specialization", int experienceYears = 0);
     Plumber(const Plumber& plumber);
     ~Plumber() override;
     Plumber& operator=(const Plumber& plumber);
 
     void setExperienceYears(int experienceYears);
-    int getExperienceYears() const;
+    [[nodiscard]] int getExperienceYears() const;
 
 private:
     int experienceYears_;

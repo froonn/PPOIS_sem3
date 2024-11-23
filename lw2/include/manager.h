@@ -11,14 +11,14 @@
 
 class Manager : public Employee {
 public:
-    Manager();
-    Manager(const std::string& name, const std::string& surname, const std::string& position, int salary, int teamSize);
+    Manager(const std::string& name = "Unknown", const std::string& surname = "Unknown",
+            const std::string& position = "Unknown", int salary = 0, int teamSize = 0);
     Manager(const Manager& manager);
     ~Manager() override;
     Manager& operator=(const Manager& manager);
 
     void setTeamSize(int teamSize);
-    int getTeamSize() const;
+    [[nodiscard]] int getTeamSize() const;
 
 private:
     int teamSize_;
