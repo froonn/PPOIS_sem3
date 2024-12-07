@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 import java.util.ArrayList;
 import java.util.List;

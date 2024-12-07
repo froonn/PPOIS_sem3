@@ -1,7 +1,7 @@
 package tests;
 
-import main.AudioFile;
-import main.RegularUser;
+import by.motolanec.filesystem.AudioFile;
+import by.motolanec.filesystem.RegularUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

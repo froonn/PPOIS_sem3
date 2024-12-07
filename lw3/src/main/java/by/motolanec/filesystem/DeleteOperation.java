@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public class DeleteOperation implements FileOperation {
     @Override

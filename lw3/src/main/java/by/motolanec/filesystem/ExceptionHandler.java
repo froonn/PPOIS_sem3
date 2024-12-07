@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public class ExceptionHandler extends Throwable {
     public static void handle(Exception e) {

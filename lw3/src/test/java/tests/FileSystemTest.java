@@ -1,6 +1,9 @@
 package tests;
 
-import main.*;
+import by.motolanec.filesystem.Directory;
+import by.motolanec.filesystem.FileSystem;
+import by.motolanec.filesystem.RegularUser;
+import by.motolanec.filesystem.User;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

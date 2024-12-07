@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public class Permission {
     private User user;

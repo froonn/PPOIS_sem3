@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public class TextFile extends File {
     private String content;

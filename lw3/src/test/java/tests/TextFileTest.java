@@ -1,7 +1,7 @@
 package tests;
 
-import main.RegularUser;
-import main.TextFile;
+import by.motolanec.filesystem.RegularUser;
+import by.motolanec.filesystem.TextFile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

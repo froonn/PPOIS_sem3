@@ -1,12 +1,11 @@
 package tests;
 
-import main.File;
-import main.RegularUser;
-import main.TextFile;
-import main.User;
+import by.motolanec.filesystem.File;
+import by.motolanec.filesystem.RegularUser;
+import by.motolanec.filesystem.TextFile;
+import by.motolanec.filesystem.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RegularUserTest {
     private RegularUser regularUser;

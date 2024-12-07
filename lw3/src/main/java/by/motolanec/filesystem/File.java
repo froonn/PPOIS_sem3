@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public abstract class File {
     protected String name;

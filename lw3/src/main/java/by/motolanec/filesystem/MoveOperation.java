@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public class MoveOperation implements FileOperation {
     private Directory destination;

@@ -1,4 +1,4 @@
-package main;
+package by.motolanec.filesystem;
 
 public abstract class User {
     protected String username;
