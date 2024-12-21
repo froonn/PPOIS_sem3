@@ -1,3 +1,8 @@
 cmake-build-debug
 tasks
 .idea
+.gitignore.swp
+build
+cmake-build-debug-coverage
+out
+target

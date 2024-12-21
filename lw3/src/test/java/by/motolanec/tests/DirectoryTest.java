@@ -1,4 +1,4 @@
-package tests;
+package by.motolanec.tests;
 
 import by.motolanec.filesystem.*;
 import org.junit.jupiter.api.BeforeEach;
